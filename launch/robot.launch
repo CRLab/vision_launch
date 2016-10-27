@@ -1,0 +1,25 @@
+<launch>
+	<!-- What topics checkerboard detector needs to subscribe to -->
+	<arg name="image_topic" default="/head_camera/rgb/image_raw" />
+	<arg name="camera_info_topic" default="/head_camera/rgb/camera_info" />
+
+	<param name="frame_id" type="string" value="/head_camera_rgb_optical_frame"/>
+  	<param name="grid0_size_x" type="int" value="6"/>
+  	<param name="grid0_size_y" type="int" value="4"/>
+  	<param name="board_type" value="chess"/>
+  	<param name="rect0_size_x" type="double" value="0.035"/>
+  	<param name="rect0_size_y" type="double" value="-0.035"/>
+  	<param name="type0" value="/world"/>
+  	<param name="~use_simple_tf" type="bool" value="true"/>
+  	<param name="message_throttle" type="int" value="10"/>
+
+  	<node pkg="checkerboard_detector" type="checkerboard_detector" name="checkerboard_detector" >
+    	      <remap from="image" to="$(arg image_topic)" />
+    	      <remap from="camera_info" to="$(arg camera_info_topic)" />
+  	</node>
+
+  	<node pkg="checkerboard_detector" type="objectdetection_tf_publisher.py" name="checkerboard_tf_publisher" />
+	
+	<include file="$(find pc_filter)/launch/pc_filter.launch"/>	
+
+</launch>
