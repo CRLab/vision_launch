@@ -1,7 +1,7 @@
 <launch>
 
 	<!-- <arg name="robot" default="mico"/>-->  
-	<arg name="robot" default="pr2"/>  
+	<arg name="robot" default="fetch22"/>  
 
 	<arg name="using_fetch" default="false"/>  	 
 	<arg name="using_mico" default="false"/>
