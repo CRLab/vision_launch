@@ -1,29 +1,31 @@
 <launch>
 
+
 	<!-- <arg name="robot" default="mico"/>-->  
 	<arg name="robot" default="fetch22"/>  
 
-	<arg name="using_fetch" default="false"/>  	 
+	<arg name="using_fetch" default="true"/>  	 
 	<arg name="using_mico" default="false"/>
-	<arg name="using_pr2" default="true"/>
+	<arg name="using_pr2" default="false"/>
 
 
 	<group if="$(arg using_fetch)">
 		<!-- What topics checkerboard detector needs to subscribe to -->
 		<arg name="image_topic" default="/head_camera/rgb/image_raw" />
 		<arg name="camera_info_topic" default="/head_camera/rgb/camera_info" />
-		<arg name="frame_id" default="/head_camera_rbg_optical_frame" />	
+		<arg name="frame_id" default="/head_camera_rgb_optical_frame" />	
 		<arg name="pc_topic" default="/head_camera/depth_registered/points" />
 		  	
 		<param name="pc_topic" type="string" value="$(arg pc_topic)"/>
 	
 		<!-- These are the checkerboard params-->
 	  	<param name="frame_id" type="string" value="$(arg frame_id)"/>
-  		<param name="grid0_size_y" type="int" value="4"/>
+  		<param name="grid0_size_x" type="int" value="6"/>
+		<param name="grid0_size_y" type="int" value="4"/>
   		<param name="board_type" value="chess"/>
   		<param name="rect0_size_x" type="double" value="0.035"/>
   		<param name="rect0_size_y" type="double" value="-0.035"/>
-  		<param name="type0" value="/world"/>
+  		<param name="type0" value="/world_raw"/>
   		<param name="~use_simple_tf" type="bool" value="true"/>
   		<param name="message_throttle" type="int" value="1"/>
 		<!--End of checkerboard params-->
@@ -39,18 +41,19 @@
 		<!-- What topics checkerboard detector needs to subscribe to -->
 		<arg name="image_topic" default="/head_camera/rgb/image_raw" />
 		<arg name="camera_info_topic" default="/head_camera/rgb/camera_info" />
-		<arg name="frame_id" default="/head_camera_rbg_optical_frame" />	
+		<arg name="frame_id" default="/head_camera_rgb_optical_frame" />	
 		<arg name="pc_topic" default="/head_camera/depth_registered/points" />
 		  	
 		<param name="pc_topic" type="string" value="$(arg pc_topic)"/>
 	
 		<!-- These are the checkerboard params-->
 	  	<param name="frame_id" type="string" value="$(arg frame_id)"/>
+		<param name="grid0_size_x" type="int" value="6"/>
   		<param name="grid0_size_y" type="int" value="4"/>
   		<param name="board_type" value="chess"/>
   		<param name="rect0_size_x" type="double" value="0.035"/>
   		<param name="rect0_size_y" type="double" value="-0.035"/>
-  		<param name="type0" value="/world"/>
+  		<param name="type0" value="/world_raw"/>
   		<param name="~use_simple_tf" type="bool" value="true"/>
   		<param name="message_throttle" type="int" value="1"/>
 
@@ -71,11 +74,12 @@
 	
 		<!-- These are the checkerboard params-->
 	  	<param name="frame_id" type="string" value="$(arg frame_id)"/>
+		<param name="grid0_size_x" type="int" value="6"/>
   		<param name="grid0_size_y" type="int" value="4"/>
   		<param name="board_type" value="chess"/>
   		<param name="rect0_size_x" type="double" value="0.035"/>
   		<param name="rect0_size_y" type="double" value="-0.035"/>
-  		<param name="type0" value="/world"/>
+  		<param name="type0" value="/world_raw"/>
   		<param name="~use_simple_tf" type="bool" value="true"/>
   		<param name="message_throttle" type="int" value="1"/>
 		<!--End of checkerboard params-->
@@ -84,11 +88,16 @@
         	        <remap from="image" to="$(arg image_topic)" />
                 	<remap from="camera_info" to="$(arg camera_info_topic)" />
 	        </node>
-	  	<!-- node pkg="checkerboard_detector" type="objectdetection_tf_publisher.py" name="checkerboard_tf_publisher" /-->
+	  	
 	</group>
 
   	<node pkg="checkerboard_detector" type="objectdetection_tf_publisher.py" name="checkerboard_tf_publisher" output="screen" />
-	
-	<include file="$(find pc_filter)/launch/pc_filter.launch"/>	
+
+	<node pkg="filter_tf" type="filter_tf.py" name="filter_tf" />
+	<node pkg="table_detector" type="table_detector" name="table_detector" />
+
+	<include file="$(find pc_filter)/launch/pc_filter.launch">
+	  <arg name="robot" value="$(arg robot)" />
+	</include>
 
 </launch>
