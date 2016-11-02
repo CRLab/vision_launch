@@ -11,6 +11,6 @@ board_type: 'chess'
 rect0_size_x: 0.035
 rect0_size_y: -0.035
 type0: '/world_raw'
-~use_simple_tf: true
+use_simple_tf: true
 message_throttle: 1
 
