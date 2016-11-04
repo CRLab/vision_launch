@@ -1,20 +1,22 @@
 <launch>
 
 	<arg name="robot"/>
-	<arg name="image_topic" default="/head_camera/rgb/image_raw" />
-	<arg name="camera_info_topic" default="/head_camera/rgb/camera_info" />
+	<arg name="image_topic"/>
+	<arg name="camera_info_topic"/>
 	
 	<!-- Load robot, and checkerboard specific params onto the param server -->
 	<rosparam command="load" file="$(find vision_launch)/configs/$(arg robot).yaml" />
 
 	<!-- This detects the checkerboard in the scene -->
-	<node pkg="checkerboard_detector" type="checkerboard_detector" name="checkerboard_detector" >
+	<node pkg="checkerboard_detector" type="checkerboard_detector" name="checkerboard_detector" output="screen" >
               <remap from="image" to="$(arg image_topic)" />
               <remap from="camera_info" to="$(arg camera_info_topic)" />
 	</node>
 
 	<!-- This publishes noisy observations of the checkerboard to the world_raw tf -->
-	<node pkg="checkerboard_detector" type="objectdetection_tf_publisher.py" name="checkerboard_tf_publisher" />
+	<node pkg="checkerboard_detector" type="objectdetection_tf_publisher.py" name="checkerboard_tf_publisher" output="screen">
+		 <param name="use_simple_tf" value="true" />
+	</node>
 
 	<!-- These detecte the table in the pointcloud and uses it for a better world z estimate -->
 	<!-- <node pkg="table_detector" type="table_detector" name="table_detector" /> -->
