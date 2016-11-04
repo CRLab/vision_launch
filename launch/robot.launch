@@ -14,7 +14,7 @@
 	</node>
 
 	<!-- This publishes noisy observations of the checkerboard to the world_raw tf -->
-	<node pkg="checkerboard_detector" type="objectdetection_tf_publisher.py" name="checkerboard_tf_publisher"/>
+	<node pkg="checkerboard_detector" type="objectdetection_tf_publisher.py" name="checkerboard_tf_publisher" />
 
 	<!-- These detecte the table in the pointcloud and uses it for a better world z estimate -->
 	<!-- <node pkg="table_detector" type="table_detector" name="table_detector" /> -->
@@ -22,11 +22,11 @@
 
 	<!-- uses both the observations of the checkerboard, and the known orientation of the robot base
 	to produce the world tf, which also smoothed overtime -->
-	<node pkg="filter_tf" type="filter_tf_base.py" name="filter_tf" />s
+	<node pkg="filter_tf" type="filter_tf_base.py" name="filter_tf" />
 
 	<!-- Uses the world frame to filter the pointcloud to only include objects overtop the table -->
 	<include file="$(find pc_filter)/launch/pc_filter.launch">
-	  <arg name="robot" value="$(arg robot)" />
+	<arg name="robot" value="$(arg robot)" />
 	</include>
 
 </launch>
