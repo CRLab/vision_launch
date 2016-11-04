@@ -1,26 +1,8 @@
 <launch>
 
-
-	<!-- <arg name="robot" default="mico"/>-->  
-	<arg name="robot" default="fetch22"/>  
-
- 	<!-- START FETCH ARGS, uncomment:  -->
-	<arg name="using_fetch" default="true"/>  	 
+	<arg name="robot"/>
 	<arg name="image_topic" default="/head_camera/rgb/image_raw" />
-	<arg name="camera_info_topic" default="/head_camera/rgb/camera_info" />	
-	<!-- END FETCH ARGS -->
-	
-	<!-- START MICO ARGS, uncomment: -->
-	<!--<arg name="using_mico" default="false"/> -->
-	<!--<arg name="image_topic" default="/head_camera/rgb/image_raw" /> -->
-	<!--<arg name="camera_info_topic" default="/head_camera/rgb/camera_info" /> -->
-	<!-- END MICO ARGS -->
-
-	<!-- START PR2 ARGS uncomment: -->
-	<!--<arg name="using_pr2" default="false"/>-->
-	<!--<arg name="image_topic" default="/head_camera/rgb/image_raw" />-->
-	<!--<arg name="camera_info_topic" default="/head_camera/rgb/camera_info" />-->
-	<!-- END PR2 ARGS -->
+	<arg name="camera_info_topic" default="/head_camera/rgb/camera_info" />
 	
 	<!-- Load robot, and checkerboard specific params onto the param server -->
 	<rosparam command="load" file="$(find vision_launch)/configs/$(arg robot).yaml" />
@@ -34,12 +16,12 @@
 	<!-- This publishes noisy observations of the checkerboard to the world_raw tf -->
 	<node pkg="checkerboard_detector" type="objectdetection_tf_publisher.py" name="checkerboard_tf_publisher"/>
 
-	<!-- This detectes the table in the pointcloud and uses it for a better world z estimate -->
+	<!-- These detecte the table in the pointcloud and uses it for a better world z estimate -->
 	<!-- <node pkg="table_detector" type="table_detector" name="table_detector" /> -->
-
-	<!-- uses both the observations of the checkerboard, and the table
-	to produce the world tf, which also smoothed overtime -->
 	<!-- <node pkg="filter_tf" type="filter_tf.py" name="filter_tf" />  -->
+
+	<!-- uses both the observations of the checkerboard, and the known orientation of the robot base
+	to produce the world tf, which also smoothed overtime -->
 	<node pkg="filter_tf" type="filter_tf_base.py" name="filter_tf" />s
 
 	<!-- Uses the world frame to filter the pointcloud to only include objects overtop the table -->

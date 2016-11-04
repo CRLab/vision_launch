@@ -1,0 +1,13 @@
+<launch>
+
+	<arg name="robot" default="fetch22"/> 
+	<arg name="image_topic" default="/head_camera/rgb/image_raw" />
+	<arg name="camera_info_topic" default="/head_camera/rgb/camera_info" />
+
+	<include file="$(find vision_launch)/launch/robot.launch">
+          <arg name="robot" value="$(arg robot)" />
+          <arg name="image_topic" value="$(arg image_topic)" />
+          <arg name="camera_info_topic" value="$(arg camera_info_topic)" />
+        </include>
+
+</launch>
