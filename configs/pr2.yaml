@@ -1,7 +1,7 @@
 ---
 
-frame_id: '/head_camera_rgb_optical_frame'
-pc_topic: '/head_camera/depth_registered/points'
+frame_id: '/head_mount_kinect2_rgb_optical_frame'
+pc_topic: '/kinect2/sd/points'
                
 grid0_size_x: 6
 grid0_size_y: 4

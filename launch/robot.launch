@@ -8,13 +8,13 @@
 	<rosparam command="load" file="$(find vision_launch)/configs/$(arg robot).yaml" />
 
 	<!-- This detects the checkerboard in the scene -->
-	<node pkg="checkerboard_detector" type="checkerboard_detector" name="checkerboard_detector" output="screen" >
+	<node pkg="checkerboard_detector" type="checkerboard_detector" name="checkerboard_detector" >
               <remap from="image" to="$(arg image_topic)" />
               <remap from="camera_info" to="$(arg camera_info_topic)" />
 	</node>
 
 	<!-- This publishes noisy observations of the checkerboard to the world_raw tf -->
-	<node pkg="checkerboard_detector" type="objectdetection_tf_publisher.py" name="checkerboard_tf_publisher" output="screen">
+	<node pkg="checkerboard_detector" type="objectdetection_tf_publisher.py" name="checkerboard_tf_publisher" >
 		 <param name="use_simple_tf" value="true" />
 	</node>
 
