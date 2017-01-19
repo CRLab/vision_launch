@@ -1,0 +1,13 @@
+---
+
+frame_id: '/head_mount_kinect_rgb_optical_frame'
+pc_topic: '/head_mount_kinect/depth_registered/points'
+               
+grid0_size_x: 6
+grid0_size_y: 4
+board_type: 'chess'
+rect0_size_x: 0.035
+rect0_size_y: -0.035
+type0: '/world_raw'
+message_throttle: 1
+

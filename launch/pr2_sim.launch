@@ -1,5 +1,5 @@
 <launch>
-	<arg name="robot" default="pr2"/>
+	<arg name="robot" default="pr2_sim"/>
 	<arg name="image_topic" default="/head_camera/rgb/image_raw" />
 	<arg name="camera_info_topic" default="/head_camera/rgb/camera_info" />
 	
