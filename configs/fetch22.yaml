@@ -1,5 +1,4 @@
 ---
-
 frame_id: '/head_camera_rgb_optical_frame'
 pc_topic: '/head_camera/depth_registered/points'
                

@@ -24,7 +24,7 @@
 
 	<!-- uses both the observations of the checkerboard, and the known orientation of the robot base
 	to produce the world tf, which also smoothed overtime -->
-	<node pkg="filter_tf" type="filter_tf_base.py" name="filter_tf" />
+	<node pkg="filter_tf" type="filter_tf_map.py" name="filter_tf" />
 
 	<!-- Uses the world frame to filter the pointcloud to only include objects overtop the table -->
 	<include file="$(find pc_filter)/launch/pc_filter.launch">
