@@ -7,7 +7,8 @@
 
     <rosparam command="load" file="$(find vision_launch)/configs/fetch22.yaml" />
     <include file="$(find pc_filter)/launch/pc_filter.launch">
-    	<arg name="robot" value="fetch22" />
+    	<arg name="config_file_name" value="fetch22" />
+		<arg name="namespace" value="/" />
     </include>
 
 </launch>
