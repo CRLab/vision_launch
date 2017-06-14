@@ -1,0 +1,13 @@
+<launch>
+
+    <include file="$(find ar_tracking)/launch/fetch_bundle_curg.launch"/>
+	<include file="$(find ar_tracking)/launch/publish_transform.launch"/>
+
+    <node pkg="filter_tf" type="filter_tf_map.py" name="filter_tf" />
+
+    <rosparam command="load" file="$(find vision_launch)/configs/fetch22.yaml" />
+    <include file="$(find pc_filter)/launch/pc_filter.launch">
+    	<arg name="robot" value="fetch22" />
+    </include>
+
+</launch>
